@@ -1,7 +1,7 @@
 /**
  * @author Mikita Belausau, Harpreet Randhawa
  */
-package project.two;
+package tuition;
 
 /**
  * Profile object for students, contains name and major.

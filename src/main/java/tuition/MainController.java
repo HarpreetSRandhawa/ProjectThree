@@ -75,7 +75,6 @@ public class MainController {
 
     @FXML
     void addStudentToRoster(ActionEvent event) {
-
     }
 
     @FXML

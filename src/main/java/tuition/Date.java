@@ -1,7 +1,7 @@
 /**
  * @author Mikita Belausau, Harpreet Randhawa
  */
-package project.two;
+package tuition;
 
 import java.util.Calendar;
 

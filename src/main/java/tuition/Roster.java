@@ -1,7 +1,7 @@
 /**
  * @author Mikita Belausau, Harpreet Randhawa
  */
-package project.two;
+package tuition;
 
 /**
 * Roster class, initializes a student roster and performs operations on the roster.

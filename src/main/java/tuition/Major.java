@@ -1,7 +1,7 @@
 /**
 @author Mikita Belausau, Harpreet Randhawa
 */
-package project.two;
+package tuition;
 
 /**
 Major has enums of type CS, IT, BA, EE, ME.
