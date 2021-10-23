@@ -12,9 +12,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuition.MainController">
    <top>
       <TabPane prefHeight="358.0" prefWidth="522.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -47,13 +48,13 @@
                               <Label prefHeight="18.0" prefWidth="66.0" text="Residency" GridPane.rowIndex="2" />
                               <RadioButton fx:id="csMajor" mnemonicParsing="false" text="CS" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <toggleGroup>
-                                    <ToggleGroup fx:id="Major" />
+                                    <ToggleGroup fx:id="MajorGroup" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton fx:id="baMajor" mnemonicParsing="false" prefHeight="29.0" prefWidth="55.0" text="BA" toggleGroup="$Major" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <RadioButton fx:id="itMajor" mnemonicParsing="false" text="IT" toggleGroup="$Major" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <RadioButton fx:id="eeMajor" mnemonicParsing="false" text="EE" toggleGroup="$Major" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                              <RadioButton fx:id="meMajor" mnemonicParsing="false" text="ME" toggleGroup="$Major" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                              <RadioButton fx:id="baMajor" mnemonicParsing="false" prefHeight="29.0" prefWidth="55.0" text="BA" toggleGroup="$MajorGroup" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <RadioButton fx:id="itMajor" mnemonicParsing="false" text="IT" toggleGroup="$MajorGroup" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <RadioButton fx:id="eeMajor" mnemonicParsing="false" text="EE" toggleGroup="$MajorGroup" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <RadioButton fx:id="meMajor" mnemonicParsing="false" text="ME" toggleGroup="$MajorGroup" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                               <RadioButton fx:id="residentResidency" mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="Residency" />
@@ -94,7 +95,16 @@
             </Tab>
             <Tab text="DisplayRoster">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <HBox layoutX="14.0" layoutY="65.0" prefHeight="100.0" prefWidth="473.0">
+                           <children>
+                              <Button fx:id="displayRosterButton" mnemonicParsing="false" onAction="#displayRoster" text="Display Roster" />
+                              <Button fx:id="displayRosterByNameButton" mnemonicParsing="false" onAction="#displayRosterByName" text="Display Roster By Name" />
+                              <Button fx:id="displayRosterByPaymentDateButton" mnemonicParsing="false" onAction="#displayRosterByPaymentDate" text="Display Roster By Payment Date" />
+                           </children>
+                        </HBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>

@@ -12,10 +12,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuition.MainController">
    <top>
       <TabPane prefHeight="358.0" prefWidth="522.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -46,35 +46,37 @@
                               <Label text="Name" />
                               <Label text="Major" GridPane.rowIndex="1" />
                               <Label prefHeight="18.0" prefWidth="66.0" text="Residency" GridPane.rowIndex="2" />
-                              <RadioButton mnemonicParsing="false" text="CS" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <RadioButton fx:id="csMajor" mnemonicParsing="false" text="CS" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <toggleGroup>
-                                    <ToggleGroup fx:id="Major" />
+                                    <ToggleGroup fx:id="MajorGroup" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" prefHeight="29.0" prefWidth="55.0" text="BA" toggleGroup="$Major" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <RadioButton mnemonicParsing="false" text="IT" toggleGroup="$Major" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <RadioButton mnemonicParsing="false" text="EE" toggleGroup="$Major" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                              <RadioButton mnemonicParsing="false" text="ME" toggleGroup="$Major" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                              <RadioButton mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <RadioButton fx:id="baMajor" mnemonicParsing="false" prefHeight="29.0" prefWidth="55.0" text="BA" toggleGroup="$MajorGroup" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <RadioButton fx:id="itMajor" mnemonicParsing="false" text="IT" toggleGroup="$MajorGroup" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <RadioButton fx:id="eeMajor" mnemonicParsing="false" text="EE" toggleGroup="$MajorGroup" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <RadioButton fx:id="meMajor" mnemonicParsing="false" text="ME" toggleGroup="$MajorGroup" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                              <RadioButton fx:id="residentResidency" mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="Residency" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="Non-Resident" toggleGroup="$Residency" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <RadioButton mnemonicParsing="false" text="Tri-State" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <RadioButton mnemonicParsing="false" text="NY" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                              <RadioButton fx:id="nonResidentResidency" mnemonicParsing="false" text="Non-Resident" toggleGroup="$Residency" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <RadioButton fx:id="triStateResidency" mnemonicParsing="false" text="Tri-State" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <RadioButton fx:id="nyResidency" mnemonicParsing="false" text="NY" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="NYorCT" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="CT" toggleGroup="$NYorCT" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                              <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="94.0" text="International" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <RadioButton mnemonicParsing="false" text="StudyAbroad?" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                              <TextField fx:id="studentName" prefHeight="26.0" prefWidth="217.0" GridPane.columnIndex="1" />
-                              <Label text="Perform Action" GridPane.rowIndex="5" />
-                              <Button fx:id="performAddStudent" mnemonicParsing="false" text="Add Student" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <Button fx:id="performDeleteStudent" mnemonicParsing="false" text="Delete Student" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                              <Button fx:id="performSetStudyAbroad" mnemonicParsing="false" text="Set StudyAbroad" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                              <RadioButton fx:id="ctResidency" mnemonicParsing="false" text="CT" toggleGroup="$NYorCT" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <RadioButton fx:id="internationalResidency" mnemonicParsing="false" prefHeight="18.0" prefWidth="94.0" text="International" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <RadioButton fx:id="studyAbroadResidency" mnemonicParsing="false" text="StudyAbroad?" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <TextField fx:id="studentNameTextField" prefHeight="26.0" prefWidth="217.0" GridPane.columnIndex="1" />
+                              <Label text="Perform Action" GridPane.rowIndex="6" />
+                              <Button fx:id="performAddStudent" mnemonicParsing="false" onAction="#addStudentToRoster" text="Add Student" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Button fx:id="performDeleteStudent" mnemonicParsing="false" onAction="#deleteStudentFromRoster" text="Delete Student" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                              <Button fx:id="performSetStudyAbroad" mnemonicParsing="false" onAction="#setStudyAbroadStatus" text="Set StudyAbroad" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                              <Label text="Credit Hours" GridPane.rowIndex="5" />
+                              <TextField fx:id="creditHoursTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                            </children>
                         </GridPane>
                      </children>
@@ -93,7 +95,16 @@
             </Tab>
             <Tab text="DisplayRoster">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <HBox layoutX="14.0" layoutY="65.0" prefHeight="100.0" prefWidth="473.0">
+                           <children>
+                              <Button fx:id="displayRosterButton" mnemonicParsing="false" onAction="#displayRoster" text="Display Roster" />
+                              <Button fx:id="displayRosterByNameButton" mnemonicParsing="false" onAction="#displayRosterByName" text="Display Roster By Name" />
+                              <Button fx:id="displayRosterByPaymentDateButton" mnemonicParsing="false" onAction="#displayRosterByPaymentDate" text="Display Roster By Payment Date" />
+                           </children>
+                        </HBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
