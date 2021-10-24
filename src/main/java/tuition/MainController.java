@@ -9,7 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
 public class MainController {
-    Roster roster = new Roster();
+    private Roster roster = new Roster();
+    private Major major = null;
+    private String studentName = null;
+    private int maxCreditHours = 24;
+    private int minCreditHours = 3;
+
 
     @FXML
     private Button displayRosterButton;
@@ -84,154 +89,217 @@ public class MainController {
     private RadioButton triStateResidency;
 
     @FXML
-    void addStudentToRoster(ActionEvent event) {
-        Major major = null;
+    void triStateSelectedHide(ActionEvent event) {
+        nyResidency.setDisable(false);
+        ctResidency.setDisable(false);
+        studyAbroadResidency.setDisable(true);
+        studyAbroadResidency.setSelected(false);
+    }
+
+    @FXML
+    void residentSelectedHide(ActionEvent event) {
+        studyAbroadResidency.setDisable(true);
+        studyAbroadResidency.setSelected(false);
+        nyResidency.setDisable(true);
+        nyResidency.setSelected(false);
+        ctResidency.setDisable(true);
+        ctResidency.setSelected(false);
+    }
+
+    @FXML
+    void InternationalSelectedHide(ActionEvent event) {
+        studyAbroadResidency.setDisable(false);
+        nyResidency.setDisable(true);
+        nyResidency.setSelected(false);
+        ctResidency.setDisable(true);
+        ctResidency.setSelected(false);
+    }
+
+    @FXML
+    public boolean checkIfValidStudentInput(ActionEvent event){
+        if(studentName.isEmpty()){
+            outPutField.appendText("Enter a name for the student.\n");
+            return false;
+        }
+        else if(major == null){
+            outPutField.appendText("Please select a major.\n");
+            return false;
+        }
+        else if(Residency.getSelectedToggle() == null){
+            outPutField.appendText("Please select a form of residency.\n");
+        }
+        else if(!(creditHoursTextField.getText().matches("-?\\d+"))){
+            outPutField.appendText("Please use only digits for credit hours.\n");
+            return false;
+        }
+        else if(Integer.parseInt(creditHoursTextField.getText()) < minCreditHours){
+            outPutField.appendText("Please use only credit hours greater than 2.\n");
+            return false;
+        }
+        else if(Integer.parseInt(creditHoursTextField.getText()) > maxCreditHours){
+            outPutField.appendText("Please use only credit hours less than 24.\n");
+            return false;
+        }
+        return true;
+    }
+
+    @FXML
+    public void setStudentName(ActionEvent event){
+        studentName = studentNameTextField.getText().trim();
+    }
+
+    @FXML
+    public void setMajorCS(ActionEvent event){
         if(csMajor.isSelected()){
             major = Major.CS;
         }
-        else if(baMajor.isSelected()){
+    }
+
+    @FXML
+    public void setMajorBA(ActionEvent event){
+        if(baMajor.isSelected()){
             major = Major.BA;
         }
-        else if(meMajor.isSelected()){
-            major = Major.ME;
-        }
-        else if(eeMajor.isSelected()){
+    }
+    @FXML
+    public void setMajorEE(ActionEvent event){
+        if(eeMajor.isSelected()){
             major = Major.EE;
         }
-        else if(itMajor.isSelected()){
+    }
+    @FXML
+    public void setMajorME(ActionEvent event){
+        if(meMajor.isSelected()){
+            major = Major.ME;
+        }
+    }
+    @FXML
+    public void setMajorIT(ActionEvent event){
+        if(itMajor.isSelected()){
             major = Major.IT;
         }
-        if(residentResidency.isSelected()){
-            Resident resident = new Resident(studentNameTextField.getText(), major,
-                    Integer.parseInt(creditHoursTextField.getText()));
-            if(roster.add(resident)){
-                outPutField.setText(studentNameTextField.getText() + " was added to roster.");
-            }
-            else{
-                outPutField.setText(studentNameTextField.getText() + " student is already in roster.");
-            }
-        }
-        else if(internationalResidency.isSelected()){
-            if(studyAbroadResidency.isSelected()){
-                International international = new International(studentNameTextField.getText(), major,
-                        Integer.parseInt(creditHoursTextField.getText()), true);
-                if(roster.add(international)){
-                    outPutField.setText(studentNameTextField.getText() + " was added to roster.");
+    }
+
+    @FXML
+    void addStudentToRoster(ActionEvent event) {
+        setStudentName(event);
+        if (checkIfValidStudentInput(event)) {
+            if (residentResidency.isSelected()) {
+                Resident resident = new Resident(studentNameTextField.getText(), major,
+                        Integer.parseInt(creditHoursTextField.getText()));
+                if (roster.add(resident)) {
+                    outPutField.appendText(studentNameTextField.getText() + " was added to roster.\n");
+                } else {
+                    outPutField.appendText(studentNameTextField.getText() + " student is already in roster.\n");
                 }
-                else{
-                    outPutField.setText(studentNameTextField.getText() + " student is already in roster.");
+            } else if (internationalResidency.isSelected()) {
+                if (studyAbroadResidency.isSelected()) {
+                    International international = new International(studentNameTextField.getText(), major,
+                            Integer.parseInt(creditHoursTextField.getText()), true);
+                    if (roster.add(international)) {
+                        outPutField.appendText(studentNameTextField.getText() + " was added to roster.\n");
+                    } else {
+                        outPutField.appendText(studentNameTextField.getText() + " student is already in roster.\n");
+                    }
+                } else {
+                    International international = new International(studentNameTextField.getText(), major,
+                            Integer.parseInt(creditHoursTextField.getText()), false);
+                    if (roster.add(international)) {
+                        outPutField.appendText(studentNameTextField.getText() + " was added to roster.\n");
+                    } else {
+                        outPutField.appendText(studentNameTextField.getText() + " student is already in roster.\n");
+                    }
                 }
-            }
-            else{
-                International international = new International(studentNameTextField.getText(), major,
-                        Integer.parseInt(creditHoursTextField.getText()), false);
-                if(roster.add(international)){
-                    outPutField.setText(studentNameTextField.getText() + " was added to roster.");
-                }
-                else{
-                    outPutField.setText(studentNameTextField.getText() + " student is already in roster.");
-                }
-            }
-        }
-        else if(triStateResidency.isSelected()){
-            if(nyResidency.isSelected()){
-                TriState tristate = new TriState(studentNameTextField.getText(), major,
-                        Integer.parseInt(creditHoursTextField.getText()), "NY");
-                if(roster.add(tristate)){
-                    outPutField.setText(studentNameTextField.getText() + " was added to roster.");
-                }
-                else{
-                    outPutField.setText(studentNameTextField.getText() + " student is already in roster.");
-                }
-            }
-            else{
-                TriState tristate = new TriState(studentNameTextField.getText(), major,
-                        Integer.parseInt(creditHoursTextField.getText()), "CT");
-                if(roster.add(tristate)){
-                    outPutField.setText(studentNameTextField.getText() + " was added to roster.");
-                }
-                else{
-                    outPutField.setText(studentNameTextField.getText() + " student is already in roster.");
+            } else if (triStateResidency.isSelected()) {
+                if (nyResidency.isSelected()) {
+                    TriState tristate = new TriState(studentNameTextField.getText(), major,
+                            Integer.parseInt(creditHoursTextField.getText()), "NY");
+                    if (roster.add(tristate)) {
+                        outPutField.appendText(studentNameTextField.getText() + " was added to roster.\n");
+                    } else {
+                        outPutField.appendText(studentNameTextField.getText() + " student is already in roster.\n");
+                    }
+                } else {
+                    TriState tristate = new TriState(studentNameTextField.getText(), major,
+                            Integer.parseInt(creditHoursTextField.getText()), "CT");
+                    if (roster.add(tristate)) {
+                        outPutField.appendText(studentNameTextField.getText() + " was added to roster.\n");
+                    } else {
+                        outPutField.appendText(studentNameTextField.getText() + " student is already in roster.\n");
+                    }
                 }
             }
         }
     }
+
 
 
     @FXML
     void deleteStudentFromRoster(ActionEvent event) {
-        Major major = null;
-        if(csMajor.isSelected()){
-            major = Major.CS;
-        }
-        else if(baMajor.isSelected()){
-            major = Major.BA;
-        }
-        else if(meMajor.isSelected()){
-            major = Major.ME;
-        }
-        else if(eeMajor.isSelected()){
-            major = Major.EE;
-        }
-        else if(itMajor.isSelected()){
-            major = Major.IT;
-        }
-        Student student = new Student(studentNameTextField.getText(), major, 5);
-        if(roster.remove(student)){
-            outPutField.setText(studentNameTextField.getText() + " was removed");
-        }
-        else{
-            outPutField.setText(studentNameTextField.getText() + " is not in the roster.");
-        }
+        setStudentName(event);
+        if (checkIfValidStudentInput(event)) {
+            Student student = new Student(studentNameTextField.getText(), major, 5);
+            if (roster.remove(student)) {
+                outPutField.appendText(studentNameTextField.getText() + " was removed.\n");
+            } else {
+                outPutField.appendText(studentNameTextField.getText() + " is not in the roster.\n");
+            }
 
+        }
     }
-    //I got the print statements
+
     @FXML
     void displayRoster(ActionEvent event) {
+        if(roster.getSize() == 0){
+            outPutField.appendText("Student roster is empty!\n");
+        }
+        outPutField.appendText("* list of students **\n");
+        outPutField.appendText(roster.print() + "\n");
+        outPutField.appendText("* end of roster **\n");
     }
+
 
     @FXML
     void displayRosterByName(ActionEvent event) {
-
-    }
+        if (roster.getSize() == 0) {
+            outPutField.appendText("Student roster is empty!\n");
+        } else {
+            outPutField.appendText("* list of students ordered by name **\n");
+            outPutField.appendText(roster.printByName() + "\n");
+            outPutField.appendText("* end of roster **\n");
+                    }
+        }
 
     @FXML
     void displayRosterByPaymentDate(ActionEvent event) {
-
+        if (roster.getSize() == 0) {
+            outPutField.appendText("Student roster is empty!\n");
+        } else {
+            outPutField.appendText("* list of students ordered by Date **\n");
+            outPutField.appendText(roster.printByDate() + "\n");
+            outPutField.appendText("* end of roster **\n");
+        }
     }
+
 
     @FXML
     void setStudyAbroadStatus(ActionEvent event) {
-        Major major = null;
-        if(csMajor.isSelected()){
-            major = Major.CS;
-        }
-        else if(baMajor.isSelected()){
-            major = Major.BA;
-        }
-        else if(meMajor.isSelected()){
-            major = Major.ME;
-        }
-        else if(eeMajor.isSelected()){
-            major = Major.EE;
-        }
-        else if(itMajor.isSelected()){
-            major = Major.IT;
-        }
-        Student student = new Student(studentNameTextField.getText(), major, 5);
-        if(roster.studentInRoster(student) == null){
-            outPutField.setText("International student not found.");
-        }
-        else if(roster.replaceStudyAbroad(student) != null){
-            International international = (International) roster.replaceStudyAbroad(student);
-            international.setStudyAbroadStatus(true);
-            international.setTotalCreditHours(12);
-            international.setTuitionDue(0);
-            international.tuitionDue();
-            international.setLastPaymentDate(null);
-            outPutField.setText(studentNameTextField.getText() + " is all set to study abroad.");
-        }
+        setStudentName(event);
+        if (checkIfValidStudentInput(event)) {
+            Student student = new Student(studentNameTextField.getText(), major, 5);
+            if (roster.studentInRoster(student) == null) {
+                outPutField.appendText("International student not found.\n");
+            } else if (roster.replaceStudyAbroad(student) != null) {
+                International international = (International) roster.replaceStudyAbroad(student);
+                international.setStudyAbroadStatus(true);
+                international.setTotalCreditHours(12);
+                international.setTuitionDue(0);
+                international.tuitionDue();
+                international.setLastPaymentDate(null);
+                outPutField.appendText(studentNameTextField.getText() + " is all set to study abroad.\n");
+            }
 
+        }
     }
 
 }

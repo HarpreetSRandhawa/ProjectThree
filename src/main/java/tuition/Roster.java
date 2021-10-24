@@ -25,6 +25,12 @@ public class Roster {
         this.size = 0;
     }
 
+    public int getSize(){
+        return this.size;
+    }
+
+
+
     /**
     * Iterates through roster to find the given student's index.
     * If index is not found, returns -1.
@@ -164,15 +170,16 @@ public class Roster {
     
     * @author Harpreet Randhawa
     */
-    public void print() {
+
+    public String print() {
+        StringBuilder print = new StringBuilder();
         if (size == 0) {
-            System.out.println("Student roster is empty!");
+            return "";
         } else {
-            System.out.println("* list of students in the roster **");
             for (int i = 0; i < size; i++) {
-                System.out.println(roster[i]);
+                print.append(roster[i].toString() + "\n");
             }
-            System.out.println("* end of roster **");
+            return print.toString();
         }
     }
 
@@ -181,11 +188,11 @@ public class Roster {
     
     * @author Harpreet Randhawa
     */
-    public void printByName() {
+    public String printByName() {
+        StringBuilder print = new StringBuilder();
         if (size == 0) {
-            System.out.println("Student roster is empty!");
+            return "";
         } else {
-            System.out.println("* list of students ordered by name **");
             Student[] temp = new Student[1];
             for (int i = 0; i < this.size; i++) {
                 for (int j = i + 1; j < this.size; j++) {
@@ -197,9 +204,9 @@ public class Roster {
                 }
             }
             for (int k = 0; k < this.size; k++) {
-                System.out.println(roster[k]);
+                print.append(roster[k].toString() + "\n");
             }
-            System.out.println("* end of roster **");
+            return print.toString();
         }
     }
 
@@ -208,12 +215,12 @@ public class Roster {
     
     * @author Mikita Belausau
     */
-    public void printByDate() {
+    public String printByDate() {
+        StringBuilder print = new StringBuilder();
         if (size == 0) {
-            System.out.println("Student roster is empty!");
+            return "";
         } else {
             int tempRosterLength = 0;
-            System.out.println("* list of students made payments ordered by payment date **");
             for (int q = 0; q < size; q++) {
                 if (roster[q].getLastPaymentDate() != null) {
                     tempRosterLength++;
@@ -240,9 +247,9 @@ public class Roster {
                 }
             }
             for (int p = 0; p < tempRosterLength; p++) {
-                System.out.println(tempRoster[p]);
+                print.append(tempRoster[p].toString() + "\n");
             }
-            System.out.println("* end of roster **");
+            return print.toString();
         }
     }
 
@@ -257,5 +264,13 @@ public class Roster {
                 roster[i].tuitionDue();
             }
         }
+    }
+    @Override
+    public String toString(){
+        StringBuilder print = new StringBuilder();
+        for(int i = 0; i<size; i++){
+            print.append(roster[i].toString() + "\n");
+        }
+        return print.toString();
     }
 }
