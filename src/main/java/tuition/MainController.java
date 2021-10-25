@@ -14,6 +14,8 @@ public class MainController {
     private String studentName = null;
     private int maxCreditHours = 24;
     private int minCreditHours = 3;
+    private boolean oneStudentTF = false;
+    private boolean entireRosterTF = false;
 
 
     @FXML
@@ -57,6 +59,12 @@ public class MainController {
 
     @FXML
     private RadioButton meMajor;
+    
+    @FXML
+    private RadioButton oneStudent;
+    
+    @FXML
+    private RadioButton entireRoster;
 
     @FXML
     private RadioButton nonResidentResidency;
@@ -64,7 +72,7 @@ public class MainController {
     @FXML
     private RadioButton nyResidency;
 
-    @FXML
+    @FXML	
     private TextArea outPutField;
 
     @FXML
@@ -75,6 +83,12 @@ public class MainController {
 
     @FXML
     private Button performSetStudyAbroad;
+    
+    @FXML
+    private Button performCalculateStudent;
+    
+    @FXML
+    private Button performCalculateRoster;
 
     @FXML
     private RadioButton residentResidency;
@@ -179,6 +193,20 @@ public class MainController {
             major = Major.IT;
         }
     }
+    
+    @FXML
+    public void setOneStudent(ActionEvent event){
+        if(oneStudent.isSelected()){
+            oneStudentTF = true;
+        }
+    }
+    
+    @FXML
+    public void setEntireRoster(ActionEvent event){
+        if(entireRoster.isSelected()){
+            entireRosterTF = true;
+        }
+    }
 
     @FXML
     void addStudentToRoster(ActionEvent event) {
@@ -256,7 +284,7 @@ public class MainController {
         outPutField.appendText("* list of students **\n");
         outPutField.appendText(roster.print() + "\n");
         outPutField.appendText("* end of roster **\n");
-    }
+    }		
 
 
     @FXML
@@ -299,6 +327,38 @@ public class MainController {
                 outPutField.appendText(studentNameTextField.getText() + " is all set to study abroad.\n");
             }
 
+        }
+    }
+    
+    @FXML
+    void calculateOneStudentTuition(ActionEvent event) {
+        setStudentName(event);
+        if(oneStudentTF == true) {
+        	if (checkIfValidStudentInput(event)) {
+        		Student student = new Student(studentNameTextField.getText(), major, 5);
+        		if (roster.studentInRoster(student) == null) {
+        			outPutField.appendText("Student not found.\n");
+        		} 
+        		else{
+        			student.setTuitionDue(0);
+        			student.tuitionDue();
+                    outPutField.appendText(studentNameTextField.getText() + " tuition due:" + student.getTuitionDue());
+        		}
+        	}
+        }
+    }
+    
+    @FXML
+    void calculateEntireRosterTuition(ActionEvent event) {
+        setStudentName(event);
+		int totalTuitionDue = 0;
+        if(entireRosterTF == true) {
+        		for(int i = 0; i < roster.getSize(); i++){
+        			student[i].setTuitionDue(0);
+        			totalTuitionDue += student[i].tuitionDue();
+                    outPutField.appendText("Roster total tuition due:" + totalTuitionDue);
+        		}
+        	}
         }
     }
 
