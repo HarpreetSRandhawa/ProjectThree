@@ -7,16 +7,15 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import project.two.Resident;
 
 public class MainController {
     private Roster roster = new Roster();
     private Major major = null;
     private String studentName = null;
+    private String paymentAmount = null;
     private int maxCreditHours = 24;
     private int minCreditHours = 3;
-    private boolean oneStudentTF = false;
-    private boolean entireRosterTF = false;
-
 
     @FXML
     private Button displayRosterButton;
@@ -95,6 +94,9 @@ public class MainController {
 
     @FXML
     private TextField studentNameTextField;
+    
+    @FXML
+    private TextField paymentAmountTextField;
 
     @FXML
     private RadioButton studyAbroadResidency;
@@ -161,6 +163,11 @@ public class MainController {
     public void setStudentName(ActionEvent event){
         studentName = studentNameTextField.getText().trim();
     }
+    
+    @FXML
+    public void setPaymentAmount(ActionEvent event){
+        paymentAmount = paymentAmountTextField.getText().trim();
+    }
 
     @FXML
     public void setMajorCS(ActionEvent event){
@@ -191,20 +198,6 @@ public class MainController {
     public void setMajorIT(ActionEvent event){
         if(itMajor.isSelected()){
             major = Major.IT;
-        }
-    }
-    
-    @FXML
-    public void setOneStudent(ActionEvent event){
-        if(oneStudent.isSelected()){
-            oneStudentTF = true;
-        }
-    }
-    
-    @FXML
-    public void setEntireRoster(ActionEvent event){
-        if(entireRoster.isSelected()){
-            entireRosterTF = true;
         }
     }
 
@@ -295,7 +288,7 @@ public class MainController {
             outPutField.appendText("* list of students ordered by name **\n");
             outPutField.appendText(roster.printByName() + "\n");
             outPutField.appendText("* end of roster **\n");
-                    }
+           }
         }
 
     @FXML
@@ -352,7 +345,10 @@ public class MainController {
     void calculateEntireRosterTuition(ActionEvent event) {
         setStudentName(event);
 		int totalTuitionDue = 0;
-        if(entireRosterTF == true) {
+        if(roster.getSize() == 0){
+            outPutField.appendText("Student roster is empty!\n");
+        }
+        if((entireRosterTF == true) && (roster.getSize() > 0)) {
         		for(int i = 0; i < roster.getSize(); i++){
         			student[i].setTuitionDue(0);
         			totalTuitionDue += student[i].tuitionDue();
@@ -360,6 +356,68 @@ public class MainController {
         		}
         	}
         }
+    
+    @FXML
+    void financialAid(ActionEvent event) {
+        setStudentName(event);
+        if (checkIfValidStudentInput(event)) {
+            Student student = new Student(studentNameTextField.getText(), major, 5);
+            if (roster.studentInRoster(student) == null) {
+                outPutField.appendText("Student not found.\n");
+            } 
+            else if (paymentAmountTextField.getText() == null) {
+                outPutField.appendText("Payment amount not found.\n");
+            }
+            else if (Integer.parseInt(paymentAmountTextField.getText()) == 0) {
+                outPutField.appendText("Please enter payment amount greater than zero.\n");
+            }
+            else if (Integer.parseInt(paymentAmountTextField.getText()) < 0) {
+                outPutField.appendText("Please enter a non-negative payment amount.\n");
+            }
+            else if (roster1.replaceFinancialAid(student) != null) {
+                Resident resident = (Resident) roster1.replaceFinancialAid(student);
+                if (resident.financialAid()) {
+                    outPutField.appendText("Awarded once already.\n");
+                } else if (resident.getTotalCreditHours() < MINIMUM_CREDIT_FOR_FULL_TIME) {
+                    outPutField.appendText("Parttime student doesn't qualify for the award.\n");
+                } else {
+                    resident.setResidentFinancialAid(Double.valueOf(parse[3]));
+                    resident.setFinancialAidRecieved(true);
+                    resident.setRecievedFinancialAidAmount(Double.valueOf(parse[3]));
+                    outPutField.appendText("Tuition updated.\n");
+                }
+            } else {
+                outPutField.appendText("Not a resident student.\n");
+            }
+
+        }
+    }
+    
+    @FXML
+    void calculatePayment(ActionEvent event) {
+        setStudentName(event);
+        if (checkIfValidStudentInput(event)) {
+            Student student = new Student(studentNameTextField.getText(), major, 5);
+            if (roster.studentInRoster(student) == null) {
+                outPutField.appendText("Student not found.\n");
+            } 
+            else if (paymentAmountTextField.getText() == null) {
+                outPutField.appendText("Payment amount not found.\n");
+            }
+            else if (Integer.parseInt(paymentAmountTextField.getText()) == 0) {
+                outPutField.appendText("Please enter payment amount greater than zero.\n");
+            }
+            else if (Integer.parseInt(paymentAmountTextField.getText()) < 0) {
+                outPutField.appendText("Please enter a non-negative payment amount.\n");
+            }
+            else {
+            	student.tuitionDue() = student.tuitionDue() - Integer.parseInt(paymentAmountTextField.getText());
+            	outPutField.appendText("Tuition due after payment:" + student.getTuitionDue());
+            }
+
+        }
+    }
+    
     }
 
-}
+
