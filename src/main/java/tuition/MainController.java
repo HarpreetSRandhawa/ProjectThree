@@ -36,27 +36,66 @@ public class MainController {
 
     @FXML
     private RadioButton baMajor;
+    
+    @FXML
+    private RadioButton baMajorTwo;
+    
+    @FXML
+    private RadioButton baMajorThree;
 
     @FXML
     private TextField creditHoursTextField;
+    
+    @FXML
+    private TextField creditHoursTextFieldTwo;
 
     @FXML
     private RadioButton csMajor;
+    
+    @FXML
+    private RadioButton csMajorThree;
 
     @FXML
     private RadioButton ctResidency;
 
     @FXML
     private RadioButton eeMajor;
+    
+    @FXML
+    private RadioButton eeMajorThree;
 
     @FXML
     private RadioButton internationalResidency;
 
     @FXML
     private RadioButton itMajor;
+    
+    @FXML
+    private RadioButton itMajorThree;
 
     @FXML
     private RadioButton meMajor;
+    
+    @FXML
+    private RadioButton meMajorThree;
+    
+    @FXML
+    private RadioButton csMajorTwo;
+
+    @FXML
+    private RadioButton ctResidencyTwo;
+
+    @FXML
+    private RadioButton eeMajorTwo;
+
+    @FXML
+    private RadioButton internationalResidencyTwo;
+
+    @FXML
+    private RadioButton itMajorTwo;
+
+    @FXML
+    private RadioButton meMajorTwo;
     
     @FXML
     private RadioButton oneStudent;
@@ -66,9 +105,15 @@ public class MainController {
 
     @FXML
     private RadioButton nonResidentResidency;
+    
+    @FXML
+    private RadioButton nonResidentResidencyTwo;
 
     @FXML
     private RadioButton nyResidency;
+    
+    @FXML
+    private RadioButton nyResidencyTwo;
 
     @FXML	
     private TextArea outPutField;
@@ -90,9 +135,18 @@ public class MainController {
 
     @FXML
     private RadioButton residentResidency;
+    
+    @FXML
+    private RadioButton residentResidencyTwo;
 
     @FXML
     private TextField studentNameTextField;
+    
+    @FXML
+    private TextField studentNameTextFieldTwo;
+    
+    @FXML
+    private TextField studentNameTextFieldThree;
     
     @FXML
     private TextField paymentAmountTextField;
@@ -102,6 +156,12 @@ public class MainController {
 
     @FXML
     private RadioButton triStateResidency;
+    
+    @FXML
+    private RadioButton studyAbroadResidencyTwo;
+
+    @FXML
+    private RadioButton triStateResidencyTwo;
 
     @FXML
     void triStateSelectedHide(ActionEvent event) {
@@ -328,7 +388,6 @@ public class MainController {
     @FXML
     void calculateOneStudentTuition(ActionEvent event) {
         setStudentName(event);
-        if(oneStudentTF == true) {
         	if (checkIfValidStudentInput(event)) {
         		Student student = new Student(studentNameTextField.getText(), major, 5);
         		if (roster.studentInRoster(student) == null) {
@@ -340,7 +399,6 @@ public class MainController {
                     outPutField.appendText(studentNameTextField.getText() + " tuition due:" + student.getTuitionDue());
         		}
         	}
-        }
     }
 
     
@@ -351,7 +409,7 @@ public class MainController {
         if(roster.getSize() == 0){
             outPutField.appendText("Student roster is empty!\n");
         }
-        if((entireRosterTF == true) && (roster.getSize() > 0)) {
+        if(roster.getSize() > 0) {
         		for(int i = 0; i < roster.getSize(); i++){
         			student[i].setTuitionDue(0);
         			totalTuitionDue += student[i].tuitionDue();
