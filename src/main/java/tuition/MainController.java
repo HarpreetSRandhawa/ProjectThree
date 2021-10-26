@@ -7,7 +7,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import project.two.Resident;
 
 public class MainController {
     private Roster roster = new Roster();
@@ -110,6 +109,7 @@ public class MainController {
         ctResidency.setDisable(false);
         studyAbroadResidency.setDisable(true);
         studyAbroadResidency.setSelected(false);
+        performSetStudyAbroad.setDisable(true);
     }
 
     @FXML
@@ -120,6 +120,7 @@ public class MainController {
         nyResidency.setSelected(false);
         ctResidency.setDisable(true);
         ctResidency.setSelected(false);
+        performSetStudyAbroad.setDisable(true);
     }
 
     @FXML
@@ -129,6 +130,7 @@ public class MainController {
         nyResidency.setSelected(false);
         ctResidency.setDisable(true);
         ctResidency.setSelected(false);
+        performSetStudyAbroad.setDisable(false);
     }
 
     @FXML
@@ -340,6 +342,7 @@ public class MainController {
         	}
         }
     }
+
     
     @FXML
     void calculateEntireRosterTuition(ActionEvent event) {
@@ -356,6 +359,8 @@ public class MainController {
         		}
         	}
         }
+
+
     
     @FXML
     void financialAid(ActionEvent event) {
@@ -392,6 +397,8 @@ public class MainController {
 
         }
     }
+
+
     
     @FXML
     void calculatePayment(ActionEvent event) {
@@ -417,6 +424,8 @@ public class MainController {
 
         }
     }
+
+
     
     }
 
