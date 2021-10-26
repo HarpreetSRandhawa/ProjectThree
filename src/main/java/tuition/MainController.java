@@ -389,14 +389,14 @@ public class MainController {
     void calculateOneStudentTuition(ActionEvent event) {
         setStudentName(event);
         	if (checkIfValidStudentInput(event)) {
-        		Student student = new Student(studentNameTextField.getText(), major, 5);
+        		Student student = new Student(studentNameTextFieldThree.getText(), major, 5);
         		if (roster.studentInRoster(student) == null) {
         			outPutField.appendText("Student not found.\n");
         		} 
         		else{
         			student.setTuitionDue(0);
         			student.tuitionDue();
-                    outPutField.appendText(studentNameTextField.getText() + " tuition due:" + student.getTuitionDue());
+                    outPutField.appendText(studentNameTextFieldThree.getText() + " tuition due:" + student.getTuitionDue());
         		}
         	}
     }
@@ -409,22 +409,22 @@ public class MainController {
         if(roster.getSize() == 0){
             outPutField.appendText("Student roster is empty!\n");
         }
-        if(roster.getSize() > 0) {
-        		for(int i = 0; i < roster.getSize(); i++){
-        			student[i].setTuitionDue(0);
-        			totalTuitionDue += student[i].tuitionDue();
-                    outPutField.appendText("Roster total tuition due:" + totalTuitionDue);
-        		}
+        else if(roster.getSize() > 0) {
+        	for(int i = 0; i < roster.getSize(); i++){
+        		student[i].setTuitionDue(0);
+        		totalTuitionDue += student[i].tuitionDue();
+                outPutField.appendText("Roster total tuition due:" + totalTuitionDue);
         	}
-        }
+       	 }
+       }
 
-
+    
     
     @FXML
     void financialAid(ActionEvent event) {
         setStudentName(event);
         if (checkIfValidStudentInput(event)) {
-            Student student = new Student(studentNameTextField.getText(), major, 5);
+            Student student = new Student(studentNameTextFieldTwo.getText(), major, 5);
             if (roster.studentInRoster(student) == null) {
                 outPutField.appendText("Student not found.\n");
             } 
@@ -462,7 +462,7 @@ public class MainController {
     void calculatePayment(ActionEvent event) {
         setStudentName(event);
         if (checkIfValidStudentInput(event)) {
-            Student student = new Student(studentNameTextField.getText(), major, 5);
+            Student student = new Student(studentNameTextFieldTwo.getText(), major, 5);
             if (roster.studentInRoster(student) == null) {
                 outPutField.appendText("Student not found.\n");
             } 

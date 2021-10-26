@@ -121,7 +121,7 @@
                               <Label fx:id="studentNameTextFieldTwo" text="Perform Action" GridPane.rowIndex="3" />
                               <Button fx:id="performFinancialAid" mnemonicParsing="false" onAction="#financialAid" text="Financial Aid" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label text="Payment Amount" GridPane.rowIndex="2" />
-                              <TextField fx:id="paymentAmountTextField1" prefHeight="26.0" prefWidth="65.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="paymentAmountTextField" prefHeight="26.0" prefWidth="65.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Button fx:id="performPayment" mnemonicParsing="false" onAction="#calculatePayment" text="Payment" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
