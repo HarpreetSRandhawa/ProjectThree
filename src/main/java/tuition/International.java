@@ -6,23 +6,23 @@ package tuition;
 import java.text.DecimalFormat;
 
 /**
-* International Student class, calculates tuitions due and creates international student objects.
-
-* @author Mikita Belausau, Harpreet Randhawa
-*/
+ * International Student class, calculates tuitions due and creates international student objects.
+ *
+ * @author Mikita Belausau, Harpreet Randhawa
+ */
 public class International extends NonResident {
     private static final int INTERNATIONAL_TUITION_FULL_TIME = 29737;
     private static final int INTERNATIONAL_ADDITIONAL_FEE = 2650;
     private boolean studyAbroad;
 
     /**
-    * Constructor for international student objects.
-    
-    * @param name The student's name.
-    * @param major The student's major.
-    * @param TOTAL_CREDIT_HOURS The student's total credit hours.
-    * @param studyAbroad The student's study abroad status.
-    * @author Mikita Belausau
+     * Constructor for international student objects.
+     *
+     * @param name               The student's name.
+     * @param major              The student's major.
+     * @param TOTAL_CREDIT_HOURS The student's total credit hours.
+     * @param studyAbroad        The student's study abroad status.
+     * @author Mikita Belausau
      */
     public International(String name, Major major, int TOTAL_CREDIT_HOURS, boolean studyAbroad) {
         super(name, major, TOTAL_CREDIT_HOURS);
@@ -30,30 +30,30 @@ public class International extends NonResident {
     }
 
     /**
-    * Get the International student's study abroad status.
-    
-    * @return The study abroad status.
-    * @author Harpreet Randhawa
-    */
+     * Get the International student's study abroad status.
+     *
+     * @return The study abroad status.
+     * @author Harpreet Randhawa
+     */
     public boolean getStudyAbroadStatus() {
         return this.studyAbroad;
     }
 
     /**
-    * Setter for the International student's study abroad status.
-    
-    * @param studyAbroad The student's study abroad status.
-    * @author Harpreet Randhawa
-    */
+     * Setter for the International student's study abroad status.
+     *
+     * @param studyAbroad The student's study abroad status.
+     * @author Harpreet Randhawa
+     */
     public void setStudyAbroadStatus(boolean studyAbroad) {
         this.studyAbroad = studyAbroad;
     }
 
     /**
-    * Calculates the tuition due for an International student.
-    
-    * @author Harpreet Randhawa
-    */
+     * Calculates the tuition due for an International student.
+     *
+     * @author Harpreet Randhawa
+     */
     @Override
     public void tuitionDue() {
         if ((this.getTotalCreditHours() >= MINIMUM_CREDIT_FOR_FULL_TIME) &&
@@ -75,41 +75,25 @@ public class International extends NonResident {
     }
 
     /**
-    * Creates a textual representation of an international student in proper format.
-    
-    * @return Returns international student information.
-    * @author Harpreet Randhawa
-    */
+     * Creates a textual representation of an international student in proper format.
+     *
+     * @return Returns international student information.
+     * @author Harpreet Randhawa
+     */
     @Override
     public String toString() {
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         decimalFormat.setGroupingUsed(true);
         decimalFormat.setGroupingSize(3);
-        
+
         if ((this.getStudyAbroadStatus() == true) && (this.getLastPaymentDate() != null)) {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-                    ":" + "last payment date: " + this.getLastPaymentDate().toString() + ":" + "non-resident" + ":" +
-                    "international" + ":" + "study abroad";
+            return super.toString() + ":" + "international" + ":" + "study abroad";
         } else if ((this.getStudyAbroadStatus() == false) && (this.getLastPaymentDate() != null)) {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-                    ":" + "last payment date: " + this.getLastPaymentDate().toString() + ":" + "non-resident" + ":" +
-                    "international";
+            return super.toString() + ":" + "international";
         } else if ((this.getStudyAbroadStatus() == true) && (this.getLastPaymentDate() == null)) {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-                    ":" + "last payment date:" + " --/--/--" + ":" + "non-resident" + ":" +
-                    "international" + ":" + "study abroad";
+            return super.toString() + ":" + "international" + ":" + "study abroad";
         } else if ((this.getStudyAbroadStatus() == false) && (this.getLastPaymentDate() == null)) {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-                    ":" + "last payment date:" + " --/--/--" + ":" + "non-resident" + ":" +
-                    "international";
+            return super.toString() + ":" + "international";
         }
         return "international";
     }

@@ -60,15 +60,9 @@ public class NonResident extends Student {
         decimalFormat.setGroupingSize(3);
         
         if (this.getLastPaymentDate() == null) {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-            		":" + "last payment date:" + " --/--/--" + ":" + "non-resident";
+            return super.toString() + ":" + "non-resident";
         } else {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-                    ":" + "last payment date: " + this.getLastPaymentDate().toString() + ":" + "non-resident";
+            return super.toString() + ":" + "non-resident";
         }
     }
 }

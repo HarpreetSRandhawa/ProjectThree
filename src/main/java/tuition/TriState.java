@@ -90,32 +90,16 @@ public class TriState extends NonResident {
         decimalFormat.setGroupingSize(3);
         
         if((this.triState.equals(NY)) && (this.getLastPaymentDate() == null)) {
-        	return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-        			+ "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-        			decimalFormat.format(this.getLastPayment()) +
-        			":" + "last payment date:" + " --/--/--" + ":" + "non-resident(tri-state)" + 
-        			":" + "NY";
+        	return super.toString() + ":" + "non-resident(tri-state)" + ":" + "NY";
         }
         else if((this.triState.equals(CT)) && (this.getLastPaymentDate() == null)) {
-        	return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-        			+ "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-        			decimalFormat.format(this.getLastPayment()) +
-        			":" + "last payment date:" + " --/--/--" + ":" + "non-resident(tri-state)" + 
-        			":" + "CT";
+        	return super.toString() + ":" + "non-resident(tri-state)" + ":" + "CT";
         }
         else if((this.triState.equals(NY)) && (this.getLastPaymentDate() != null)) {
-        	return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-        			+ "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-        			decimalFormat.format(this.getLastPayment()) +
-        			":" + "last payment date: " + this.getLastPaymentDate().toString() + ":" + "non-resident(tri-state)" + 
-        			":" + "NY";
+        	return super.toString() + ":" + "non-resident(tri-state)" + ":" + "NY";
         }
         else if((this.triState.equals(CT)) && (this.getLastPaymentDate() != null)) {
-        	return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-        			+ "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-        			decimalFormat.format(this.getLastPayment()) +
-        			":" + "last payment date: " + this.getLastPaymentDate().toString() + ":" + "non-resident(tri-state)" + 
-        			":" + "CT";
+        	return super.toString() + ":" + "non-resident(tri-state)" + ":" + "CT";
         }
         return "";
     }

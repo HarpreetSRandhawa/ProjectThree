@@ -103,30 +103,16 @@ public class Resident extends Student {
         decimalFormat.setGroupingSize(3);
         
         if ((this.getLastPaymentDate() == null) && (recievedFinancialAid == false)) {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-                    ":" + "last payment date:" + " --/--/--" + ":" + "resident";
+            return super.toString() + ":" + "resident";
         } 
         else if (this.getLastPaymentDate() != null && (recievedFinancialAid == false)) {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-                    ":" + "last payment date: " + this.getLastPaymentDate().toString() + ":" + "resident";
+            return super.toString() + ":" + "resident";
         }
         else if (this.getLastPaymentDate() == null && (recievedFinancialAid == true)) {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-                    ":" + "last payment date:" + " --/--/--" + ":" + "resident" +
-                    ":" + "financial aid $" + decimalFormat.format(this.recievedFinancialAidAmount);
+            return super.toString() + ":" + "resident" + ":" + "financial aid $" + decimalFormat.format(this.recievedFinancialAidAmount);
         } 
         else if (this.getLastPaymentDate() != null && (recievedFinancialAid == true)) {
-            return this.getProfile().getName() + ":" + this.getProfile().getMajor() + ":" + this.getTotalCreditHours() + " credit hours:"
-                    + "tuition due:" + decimalFormat.format(this.getTuitionDue()) + ":" + "total payment:" + 
-                    decimalFormat.format(this.getLastPayment()) +
-                    ":" + "last payment date: " + this.getLastPaymentDate().toString() + ":" + "resident" + 
-                    ":" + "financial aid $" + decimalFormat.format(this.recievedFinancialAidAmount);
+            return super.toString() + ":" + "resident" + ":" + "financial aid $" + decimalFormat.format(this.recievedFinancialAidAmount);
         }
         return "";
     }
